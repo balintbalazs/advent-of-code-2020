@@ -168,11 +168,7 @@ impl<'a> ser::Serializer for &'a mut Serializer {
 
     // As is done here, serializers are encouraged to treat newtype structs as
     // insignificant wrappers around the data they contain.
-    fn serialize_newtype_struct<T>(
-        self,
-        _name: &'static str,
-        value: &T,
-    ) -> Result<()>
+    fn serialize_newtype_struct<T>(self, _name: &'static str, value: &T) -> Result<()>
     where
         T: ?Sized + Serialize,
     {
@@ -252,11 +248,7 @@ impl<'a> ser::Serializer for &'a mut Serializer {
     // omit the field names when serializing structs because the corresponding
     // Deserialize implementation is required to know what the keys are without
     // looking at the serialized data.
-    fn serialize_struct(
-        self,
-        _name: &'static str,
-        len: usize,
-    ) -> Result<Self::SerializeStruct> {
+    fn serialize_struct(self, _name: &'static str, len: usize) -> Result<Self::SerializeStruct> {
         self.serialize_map(Some(len))
     }
 
@@ -362,7 +354,7 @@ impl<'a> ser::SerializeTupleVariant for &'a mut Serializer {
     {
         Err(Error::UnsupportedType)
     }
-    
+
     fn end(self) -> Result<()> {
         Err(Error::UnsupportedType)
     }
@@ -432,7 +424,7 @@ impl<'a> ser::SerializeStruct for &'a mut Serializer {
         self.output += ":";
         value.serialize(&mut **self)
     }
-    
+
     fn end(self) -> Result<()> {
         // No close
         Ok(())
@@ -451,7 +443,7 @@ impl<'a> ser::SerializeStructVariant for &'a mut Serializer {
     {
         Err(Error::UnsupportedType)
     }
-    
+
     fn end(self) -> Result<()> {
         Err(Error::UnsupportedType)
     }
@@ -473,7 +465,7 @@ fn test_struct() {
     };
     let expected = r#"int:1 str:a"#;
     assert_eq!(to_string(&test).unwrap(), expected);
-    
+
     let v = vec![&test, &test];
     let expected = r#"int:1 str:a
 

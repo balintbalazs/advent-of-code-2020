@@ -32,18 +32,18 @@ fn main() {
 
     let mut pairs = HashMap::new();
 
-    for i in 0..(numbers.len()-1) {
-      for j in (i+1)..numbers.len() {
-        pairs.insert(numbers[i] + numbers[j], (numbers[i], numbers[j]));
-      }
+    for i in 0..(numbers.len() - 1) {
+        for j in (i + 1)..numbers.len() {
+            pairs.insert(numbers[i] + numbers[j], (numbers[i], numbers[j]));
+        }
     }
 
     // dbg!(&pairs);
 
     for n3 in &numbers {
-      if let Some((n1, n2)) =  pairs.get(&(2020 - n3)) {
-        println!("Found triplets: {} + {} + {} = 2020", n1, n2, n3);
-        println!("Product is {}", n1 * n2 * n3);
-      }
+        if let Some((n1, n2)) = pairs.get(&(2020 - n3)) {
+            println!("Found triplets: {} + {} + {} = 2020", n1, n2, n3);
+            println!("Product is {}", n1 * n2 * n3);
+        }
     }
 }

@@ -14,10 +14,10 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let max = ids.iter().max().unwrap();
     dbg!(max);
-    
+
     ids.sort();
-    for i in 0..(ids.len()-2) {
-        if ids[i+1] - ids[i] != 1 {
+    for i in 0..(ids.len() - 2) {
+        if ids[i + 1] - ids[i] != 1 {
             let missing = ids[i] + 1;
             dbg!(missing);
         }

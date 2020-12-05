@@ -1,9 +1,6 @@
 use std::ops::{AddAssign, MulAssign, Neg};
 
-use serde::de::{
-    self, DeserializeSeed, MapAccess, SeqAccess,
-    Visitor,
-};
+use serde::de::{self, DeserializeSeed, MapAccess, SeqAccess, Visitor};
 use serde::Deserialize;
 
 use crate::error::{Error, Result};
