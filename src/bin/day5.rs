@@ -1,6 +1,5 @@
 use std::error::Error;
 use std::fs;
-use std::str;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let data = fs::read_to_string("day5_in.txt")?;
