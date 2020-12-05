@@ -8,6 +8,9 @@ edition = "2018"
 
 [dependencies]
 scan_fmt = "0.2.5"
+pp = {path = "./pp" }
+serde = { version = "1.0.117", features = [ "derive" ] }
+regex = "1.4.2"
 
 [workspace]
 members = ["pp"]

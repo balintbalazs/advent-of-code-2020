@@ -90,6 +90,7 @@ impl<'de> Deserializer<'de> {
         let mut int = match self.next_char()? {
             ch @ '0'..='9' => T::from(ch as u8 - b'0'),
             _ => {
+                dbg!(self.input);
                 return Err(Error::ExpectedInteger);
             }
         };
@@ -160,6 +161,7 @@ impl<'de, 'a> de::Deserializer<'de> for &'a mut Deserializer<'de> {
     where
         V: Visitor<'de>,
     {
+        println!("{}", &self.input[..10]);
         Err(Error::UnsupportedType)
     }
 
