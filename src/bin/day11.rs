@@ -18,6 +18,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     // print(&seats);
     // let seats = iterate(&seats);
     // print(&seats);
+
     let mut counter = 0;
     loop {
         let next = iterate(&seats);
@@ -31,7 +32,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let occupied: i32 = seats
         .iter()
-        .map(|row| row.iter().map(|c| if c == &'#' { 1 } else { 0 }).sum::<i32>())
+        .map(|row| {
+            row.iter()
+                .map(|c| if c == &'#' { 1 } else { 0 })
+                .sum::<i32>()
+        })
         .sum();
 
     println!("occupied seats: {}", occupied);
@@ -47,7 +52,7 @@ fn iterate(seats: &Vec<Vec<char>>) -> Vec<Vec<char>> {
                 let occupied = occupant_count(&seats, i, j);
                 if seats[i][j] == 'L' && occupied == 0 {
                     next[i][j] = '#';
-                } else if seats[i][j] == '#' && occupied >= 4 {
+                } else if seats[i][j] == '#' && occupied >= 5 {
                     next[i][j] = 'L';
                 }
             }
@@ -58,26 +63,110 @@ fn iterate(seats: &Vec<Vec<char>>) -> Vec<Vec<char>> {
 
 fn occupant_count(seats: &Vec<Vec<char>>, i: usize, j: usize) -> u32 {
     let mut count = 0;
-    let i = i as i32;
-    let j = j as i32;
-    for di in vec![-1, 0, 1] {
-        for dj in vec![-1, 0, 1] {
-            if di == 0 && dj == 0 {
-                continue;
-            }
-            // top or left edge
-            if i + di < 0 || j + dj < 0 {
-                continue;
-            }
-            // bottom or right edge
-            if (i + di) as usize >= seats.len() || (j + dj) as usize >= seats[i as usize].len() {
-                continue;
-            }
-            if seats[(i + di) as usize][(j + dj) as usize] == '#' {
-                count = count + 1;
-            }
+
+    let height = seats.len();
+    let width = seats[0].len();
+
+    let mut di = 1;
+    while i + di < height {
+        if seats[i + di][j] == '#' {
+            count = count + 1;
+            break;
         }
+        if seats[i + di][j] == 'L' {
+            break;
+        }
+        di = di + 1;
     }
+
+    let mut di = 1;
+    while i >= di {
+        if seats[i - di][j] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i - di][j] == 'L' {
+            break;
+        }
+        di = di + 1;
+    }
+
+    let mut dj = 1;
+    while j + dj < width {
+        if seats[i][j + dj] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i][j + dj] == 'L' {
+            break;
+        }
+        dj = dj + 1;
+    }
+
+    let mut dj = 1;
+    while j >= dj {
+        if seats[i][j - dj] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i][j - dj] == 'L' {
+            break;
+        }
+        dj = dj + 1;
+    }
+
+    let (mut di, mut dj) = (1, 1);
+    while i + di < height && j + dj < width {
+        if seats[i + di][j + dj] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i + di][j + dj] == 'L' {
+            break;
+        }
+        di = di + 1;
+        dj = dj + 1;
+    }
+
+    let (mut di, mut dj) = (1, 1);
+    while i >= di && j + dj < width {
+        if seats[i - di][j + dj] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i - di][j + dj] == 'L' {
+            break;
+        }
+        di = di + 1;
+        dj = dj + 1;
+    }
+
+    let (mut di, mut dj) = (1, 1);
+    while i + di < height && j >= dj {
+        if seats[i + di][j - dj] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i + di][j - dj] == 'L' {
+            break;
+        }
+        di = di + 1;
+        dj = dj + 1;
+    }
+
+    let (mut di, mut dj) = (1, 1);
+    while i >= di && j >= dj {
+        if seats[i - di][j - dj] == '#' {
+            count = count + 1;
+            break;
+        }
+        if seats[i - di][j - dj] == 'L' {
+            break;
+        }
+        di = di + 1;
+        dj = dj + 1;
+    }
+
     count
 }
 
