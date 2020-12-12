@@ -7,7 +7,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let width = 31;
     let mut line_number = 0;
     let mut trees = [0; 5];
-    for line in read_lines("day3_in.txt")? {
+    for line in read_lines("inputs/day3_in.txt")? {
         let line = line?;
         let line = line.as_bytes();
         for i in 0..5 {

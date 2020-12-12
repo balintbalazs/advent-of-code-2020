@@ -5,7 +5,7 @@ use scan_fmt::scan_fmt;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut valid = (0, 0);
-    for line in read_lines("day2_in.txt")? {
+    for line in read_lines("inputs/day2_in.txt")? {
         if let Ok(line) = line {
             if check_rule1(&line) {
                 valid.0 = valid.0 + 1;

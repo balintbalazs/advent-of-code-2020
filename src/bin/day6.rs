@@ -3,7 +3,7 @@ use std::error::Error;
 use std::fs;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let data = fs::read_to_string("day6_in.txt")?;
+    let data = fs::read_to_string("inputs/day6_in.txt")?;
     let data = data.split("\n\n");
     let sum1: usize = data
         .clone()

@@ -6,7 +6,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     const WINDOW: usize = 25;
 
-    let data = fs::read_to_string("day9_in.txt")?;
+    let data = fs::read_to_string("inputs/day9_in.txt")?;
     let nums: Vec<_> = data
         .split('\n')
         .map(|l| {

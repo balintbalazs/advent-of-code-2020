@@ -3,7 +3,7 @@ use std::error::Error;
 use std::fs;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let data = fs::read_to_string("day7_in.txt")?;
+    let data = fs::read_to_string("inputs/day7_in.txt")?;
     //cleanup
     let data = data
         .replace("bags", "bag")

@@ -3,7 +3,7 @@ use std::error::Error;
 use std::fs;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let data = fs::read_to_string("day8_in.txt")?;
+    let data = fs::read_to_string("inputs/day8_in.txt")?;
     let instructions: Vec<_> = data
         .split('\n')
         .map(|l| {

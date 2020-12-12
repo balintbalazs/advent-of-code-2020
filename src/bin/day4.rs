@@ -129,7 +129,7 @@ fn valid_year(byr: &Option<String>, min: u32, max: u32) -> bool {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let data = fs::read_to_string("day4_in.txt")?;
+    let data = fs::read_to_string("inputs/day4_in.txt")?;
     let data: Vec<Passport> = from_str(&data)?;
 
     let num_valid: i32 = data.iter().map(|pp| if pp.valid() { 1 } else { 0 }).sum();
