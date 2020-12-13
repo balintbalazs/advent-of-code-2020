@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             |acc, (id, wait)| if wait < acc.1 { (id, wait) } else { acc },
         );
 
-    dbg!(id, wait);
+    // dbg!(id, wait);
     dbg!(id * wait);
     
     // part 2
@@ -30,7 +30,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .zip(0..)
         .filter_map(|(id, idx)| id.parse::<u64>().map(|id| (id, idx)).ok())
         .collect();
-    dbg!(&ids);
+    // dbg!(&ids);
 
     let mut time: u64= 0;
     let mut step = ids[0].0;
@@ -40,7 +40,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             time = time + step;
         }
         // found correct time for buses 0..curr
-        step = step * ids[curr].0;
+        step = step * ids[curr].0; // all bus ids are prime, otherwise step = lcm(step, ids[curr].0)
         curr = curr + 1;
     }
     dbg!(time);
